@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
-import { checkUsers } from "../actions/userActions"; // Import the action
-
+import { checkUser } from '../reducers/userSlice';
 function Login() {
   const [userData, setUserData] = useState({
     email: "",
@@ -19,7 +18,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const result = await dispatch(checkUsers(userData));
+      const result = await dispatch(checkUser(userData));
       if (result) {
         navigate('/users');
       } else {

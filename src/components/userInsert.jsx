@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../actions/userActions";
+import { createUser } from "../reducers/userSlice";
 
 const UserInsert = () => {
   const [userData, setUserData] = useState({

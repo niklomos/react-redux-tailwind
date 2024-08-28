@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { createUser, editUser, fetchUser } from "../actions/userActions";
+import { createUser, editUser, fetchUser } from "../reducers/userSlice";
 
 const UserEdit = () => {
   const [userData, setUserData] = useState({

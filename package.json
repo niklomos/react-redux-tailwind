@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.5",
     "bootstrap5": "^1.1.9",
     "datatables.net": "^2.1.4",
