@@ -19,7 +19,7 @@ function Login() {
 
     try {
       const result = await dispatch(checkUser(userData));
-      if (result) {
+      if (result.meta.requestStatus === "fulfilled") {
         navigate('/users');
       } else {
         Swal.fire({
@@ -45,7 +45,11 @@ function Login() {
       <div className="login-box w-full max-w-sm p-6 bg-white border border-gray-300 rounded-lg shadow-md">
         <div className="card-header text-center mb-4">
           <a href="#" className="text-2xl  text-gray-900 ">
-            <b>Redux</b> <span>Restful API</span>
+            <b>Redux</b> 
+            <span className="ms-2 bg-gradient-to-r from-red-400 via-yellow-400 to-purple-600 bg-clip-text text-transparent">
+  Restful API
+</span>
+
           </a>
         </div>
         <div className="card-body">

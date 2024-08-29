@@ -32,12 +32,12 @@ const UserEdit = () => {
   const handleSave = async () => {
     const result = userData.id ? await dispatch(editUser(userData)) : await dispatch(createUser(userData));
 
-    if (result.success) {
-      setMessage("User saved successfully.");
+    if (result.meta.requestStatus === "fulfilled") {
+      setMessage("User created successfully.");
       setIsError(false);
       navigate("/users"); // Redirect after successful save
     } else {
-      setMessage(result.message || "An error occurred.");
+      setMessage(result.error.message || "An error occurred.");
       setIsError(true);
     }
   };

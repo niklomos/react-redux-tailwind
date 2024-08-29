@@ -18,12 +18,12 @@ const UserInsert = () => {
   const handleSave = async () => {
     const result = await dispatch(createUser(userData));
 
-    if (result.success) {
+    if (result.meta.requestStatus === "fulfilled") {
       setMessage("User created successfully.");
       setIsError(false);
       navigate("/users"); // Redirect after successful save
     } else {
-      setMessage(result.message || "An error occurred.");
+      setMessage(result.error.message || "An error occurred.");
       setIsError(true);
     }
   };

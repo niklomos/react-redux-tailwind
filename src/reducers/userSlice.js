@@ -3,7 +3,6 @@ import axios from "axios";
 
 const apiUrl = "https://66cd93858ca9aa6c8ccad958.mockapi.io/api/users";
 
-// Async actions using createAsyncThunk
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await axios.get(apiUrl);
   return response.data;
@@ -33,9 +32,7 @@ export const checkUser = createAsyncThunk("users/checkUser", async (userData, { 
   try {
     const response = await axios.get(apiUrl);
     const users = response.data;
-
     const user = users.find(u => u.email === userData.email && u.password === userData.password);
-
     if (user) {
       sessionStorage.setItem('user', JSON.stringify(user));
       return user;
@@ -55,89 +52,42 @@ const userSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsers.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.loading = false;
-        state.users = action.payload;
-      })
-      .addCase(fetchUsers.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      .addCase(fetchUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.currentUser = action.payload;
-      })
-      .addCase(fetchUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      .addCase(createUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(createUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.users.push(action.payload);
-      })
-      .addCase(createUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      .addCase(editUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(editUser.fulfilled, (state, action) => {
-        state.loading = false;
-        const index = state.users.findIndex(user => user.id === action.payload.id);
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
-      })
-      .addCase(editUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      .addCase(deleteUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(deleteUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.users = state.users.filter(user => user.id !== action.payload);
-      })
-      .addCase(deleteUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
-
-      .addCase(checkUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(checkUser.fulfilled, (state, action) => {
-        state.loading = false;
-        state.currentUser = action.payload;
-      })
-      .addCase(checkUser.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload || action.error.message;
-      });
+      .addMatcher(
+        (action) => action.type.endsWith("/pending"),
+        (state) => {
+          state.loading = true;
+          state.error = null;
+        },
+      )
+      .addMatcher(
+        (action) => action.type.endsWith("/fulfilled"),
+        (state, action) => {
+          state.loading = false;
+          if (action.type.includes("fetchUsers")) {
+            state.users = action.payload;
+          } else if (action.type.includes("fetchUser")) {
+            state.currentUser = action.payload;
+          } else if (action.type.includes("createUser")) {
+            state.users.push(action.payload);
+          } else if (action.type.includes("editUser")) {
+            const index = state.users.findIndex((user) => user.id === action.payload.id);
+            if (index !== -1) {
+              state.users[index] = action.payload;
+            }
+          } else if (action.type.includes("deleteUser")) {
+            state.users = state.users.filter((user) => user.id !== action.payload);
+          }
+        },
+      )
+      .addMatcher(
+        (action) => action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.loading = false;
+          state.error = action.error.message;
+        },
+      );
   },
 });
 

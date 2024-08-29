@@ -1,23 +1,25 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
-  
-  const sessionUser = JSON.parse(sessionStorage.getItem('user'));
-  console.log(sessionUser)
-
- 
+  const sessionUser = JSON.parse(sessionStorage.getItem("user"));
+  console.log(sessionUser);
 
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4 bg-gray-800 text-white">
       {/* Brand Logo */}
       <a href="#" className="brand-link ">
         <img
-          src="../../dist/img/AdminLTELogo.png"
+          src="../../dist/img/107.png"
           alt="AdminLTE Logo"
-          className="brand-image img-circle elevation-3 "
+          className="brand-image  "
           style={{ opacity: ".8" }}
         />
-        <span className="brand-text font-weight-light ml-3 text-lg">Redux RestfulAPI</span>
+  <span className="brand-text text-3xl text-lg bg-gradient-to-r from-red-400 via-yellow-400 to-purple-600 bg-clip-text text-transparent uppercase">
+     Redux RestfulAPI
+  </span>
+
+
+
       </a>
 
       {/* Sidebar */}
@@ -26,15 +28,18 @@ const Sidebar = () => {
         <div className="user-panel mt-3 pb-3 mb-3 ">
           <div className="image">
             <img
-              src={'dist/img/avatar4.png'} // ใช้ avatar จาก sessionStorage หรือรูปภาพเริ่มต้น
+              src={"dist/img/avatar4.png"} // ใช้ avatar จาก sessionStorage หรือรูปภาพเริ่มต้น
               className="img-circle elevation-2 "
               alt="User Image"
             />
           </div>
           <div className="info ml-3">
-            <a href="#" className="d-block text-white font-medium hover:text-gray-300 transition-colors">
+            <a
+              href="#"
+              className="d-block text-white font-medium hover:text-gray-300 transition-colors"
+            >
               {/* แสดงชื่อผู้ใช้จาก sessionStorage */}
-              {sessionUser ? sessionUser.name : 'Guest'}
+              {sessionUser ? sessionUser.name : "Guest"}
             </a>
           </div>
         </div>
@@ -43,15 +48,20 @@ const Sidebar = () => {
         <nav className="mt-2">
           <ul className="nav nav-pills nav-sidebar flex-column">
             <li className="nav-item">
-            <NavLink
+              <NavLink
                 to="/users"
                 className={({ isActive }) =>
                   `nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors ${
-                    isActive || location.pathname.match(/^\/edit\/\d+/) ? "bg-gray-700" : ""
+                    isActive || location.pathname.match(/^\/edit\/\d+/)
+                      ? "bg-gray-700"
+                      : ""
                   }`
                 }
               >
-                <i className="nav-icon fas fa-home mr-3" />
+<i
+  className="nav-icon fas fa-home mr-3 bg-gradient-to-r from-red-400 via-yellow-400 to-purple-600 
+             bg-clip-text text-transparent"
+></i>
                 <p className="text">Home</p>
               </NavLink>
             </li>
@@ -59,29 +69,41 @@ const Sidebar = () => {
               <NavLink
                 to="/insert"
                 className={({ isActive }) =>
-                  `nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors ${
-                    isActive ? "bg-gray-700" : ""
+                  `nav-link flex items-center p-3 rounded-md transition-colors ${
+                    isActive ? "bg-gray-700" : "hover:bg-gray-700"
                   }`
                 }
               >
-                <i className="nav-icon fas fa-plus mr-3" />
+                <i
+                  className="nav-icon fas fa-plus mr-3 bg-gradient-to-r from-red-400 via-yellow-400 to-purple-600 
+               bg-clip-text text-transparent"
+                />
                 <p className="text">Add</p>
               </NavLink>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors">
+              <a
+                href="#"
+                className="nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors"
+              >
                 <i className="nav-icon far fa-circle text-red-500 mr-3" />
                 <p className="text">Important</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors">
+              <a
+                href="#"
+                className="nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors"
+              >
                 <i className="nav-icon far fa-circle text-yellow-500 mr-3" />
                 <p className="text">Warning</p>
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors">
+              <a
+                href="#"
+                className="nav-link flex items-center p-3 rounded-md hover:bg-gray-700 transition-colors"
+              >
                 <i className="nav-icon far fa-circle text-blue-500 mr-3" />
                 <p className="text">Informational</p>
               </a>
